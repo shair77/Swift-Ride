@@ -1,0 +1,141 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const bookingForm = document.getElementById('bookingForm');
+  const bookingsList = document.getElementById('bookingsList');
+
+  function showToast(message, isSuccess = true) {
+    const toastContainer = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${isSuccess ? 'bg-success' : 'bg-danger'} text-white`;
+    toast.style.minWidth = '250px';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    toast.innerHTML = `
+      <div class="toast-body">
+        ${message}
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close" style="border:none;background:none;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
+    toastContainer.appendChild(toast);
+    $(toast).toast({ delay: 3000 });
+    $(toast).toast('show');
+    $(toast).on('hidden.bs.toast', () => toast.remove());
+  }
+
+  async function fetchBookings() {
+    try {
+      const response = await fetch('http://localhost:5000/api/bookings');
+      if (!response.ok) throw new Error('Failed to fetch bookings');
+      const bookings = await response.json();
+      renderBookings(bookings);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+      showToast('Failed to load bookings.', false);
+    }
+  }
+
+  function renderBookings(bookings) {
+    bookingsList.innerHTML = '';
+    bookings.forEach((booking) => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-center';
+      li.innerHTML = `
+        <span>
+          Customer ID: ${booking.Booking_CustomerID || 'N/A'}, 
+          Vehicle ID: ${booking.Booking_VehicleID || 'N/A'}, 
+          Date: ${booking.Booking_Date || 'N/A'}, 
+          Pickup: ${booking.Booking_PickupLocation || 'N/A'}, 
+          Dropoff: ${booking.Booking_DropoffLocation || 'N/A'}, 
+          Status: ${booking.Booking_Status || 'N/A'}
+        </span>
+        <button class="btn btn-danger btn-sm deleteBookingBtn" data-id="${booking.Booking_ID}"><i class="fas fa-trash"></i></button>
+      `;
+      bookingsList.appendChild(li);
+    });
+
+    document.querySelectorAll('.deleteBookingBtn').forEach(button => {
+      button.addEventListener('click', handleDeleteBooking);
+    });
+  }
+
+  async function handleDeleteBooking(e) {
+    const bookingId = e.target.closest('button').getAttribute('data-id');
+    const row = e.target.closest('li');
+
+    row.style.display = 'none'; // hide temporarily
+
+    const undoToast = document.createElement('div');
+    undoToast.className = 'toast bg-warning text-dark';
+    undoToast.style.minWidth = '300px';
+    undoToast.setAttribute('role', 'alert');
+    undoToast.setAttribute('aria-live', 'assertive');
+    undoToast.setAttribute('aria-atomic', 'true');
+    undoToast.innerHTML = `
+      <div class="toast-body text-center">
+        Booking will be deleted. 
+        <button type="button" class="btn btn-sm btn-light ml-2" id="undoDeleteBtn">Undo</button>
+      </div>
+    `;
+    document.getElementById('toastContainer').appendChild(undoToast);
+
+    $(undoToast).toast({ delay: 10000 });
+    $(undoToast).toast('show');
+
+    let timeoutId = setTimeout(async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Failed to delete booking');
+        showToast('Booking deleted successfully!', true);
+        fetchBookings();
+      } catch (error) {
+        console.error(error);
+        showToast('Failed to delete booking.', false);
+      }
+      undoToast.remove();
+    }, 10000);
+
+    document.getElementById('undoDeleteBtn').addEventListener('click', () => {
+      clearTimeout(timeoutId);
+      row.style.display = '';
+      undoToast.remove();
+      showToast('Deletion canceled.', true);
+    });
+  }
+
+  bookingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const customer_id = document.getElementById('customer_id').value;
+    const vehicle_id = document.getElementById('vehicle_id').value;
+    const booking_date = document.getElementById('booking_date').value;
+    const pickup_location = document.getElementById('pickup_location').value;
+    const dropoff_location = document.getElementById('dropoff_location').value;
+
+    if (!customer_id || !vehicle_id || !booking_date || !pickup_location || !dropoff_location) {
+      showToast('Please fill all fields.', false);
+      return;
+    }
+
+    const newBooking = { customer_id, vehicle_id, booking_date, pickup_location, dropoff_location };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newBooking)
+      });
+      if (!response.ok) throw new Error('Failed to add booking');
+      showToast('Booking added successfully!', true);
+      bookingForm.reset();
+      fetchBookings();
+    } catch (error) {
+      console.error(error);
+      showToast('Failed to add booking.', false);
+    }
+  });
+
+  fetchBookings();
+});

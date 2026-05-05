@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Swift Ride</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css"> <!-- Your custom CSS -->
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Register for Swift Ride</h1>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="form-group">
+      <div class="mb-3">
+        <input type="text" id="name" class="form-control" placeholder="Full Name" required>
+      </div>
+      <div class="mb-3">
+        <input type="email" id="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+      </div>
+      <div class="mb-3">
+        <input type="text" id="phone" class="form-control" placeholder="Phone Number" required>
+      </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <select id="role" class="form-control">
+          <option value="customer">Customer</option>
+          <option value="driver">Driver</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+
+    <p class="text-center mt-3">Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Your custom JS -->
+  <script src="register.js"></script>
+  <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <div id="toastContainer"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Swift Ride</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css"> <!-- Your custom CSS -->
+</head>
+<body>
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        <div id="toastContainer"></div>
+      </div>
+      
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Login to Swift Ride</h1>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="form-group">
+      <div class="mb-3">
+        <input type="email" id="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+
+    <!-- Register Link -->
+    <p class="text-center mt-3">New user? <a href="register.html">Click here to register</a></p>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Bootstrap JS, Popper.js, and jQuery (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Your custom JS -->
+  <script src="login.js"></script>
+  <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <div id="toastContainer"></div>
+  </div>
+</body>
+</html>

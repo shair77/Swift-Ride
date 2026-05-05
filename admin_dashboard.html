@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sidebar">
+  <h2><i class="fas fa-car-side"></i> Ride Booking</h2>
+  <ul>
+    <li><a href="admin_dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+    <li><a href="manage_vehicles.html"><i class="fas fa-car"></i> Manage Vehicles</a></li>
+    <li><a href="manage_users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+    <li><a href="login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <div class="container-fluid">
+    <h1 class="mt-4"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+
+    <!-- Stats -->
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-list"></i> Total Bookings</h5>
+            <div class="display-4" id="totalBookings">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-warning text-dark">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-clock"></i> Pending Bookings</h5>
+            <div class="display-4" id="pendingBookings">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-check-circle"></i> Completed Bookings</h5>
+            <div class="display-4" id="completedBookings">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bookings -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h2><i class="fas fa-list-ol"></i> Bookings</h2>
+        <div class="input-group mb-3">
+          <input type="text" id="searchBookings" class="form-control" placeholder="Search bookings...">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="refreshBookings">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Vehicle</th>
+                <th>Pickup</th>
+                <th>Dropoff</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assign Driver -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h2><i class="fas fa-user-plus"></i> Assign Driver</h2>
+      </div>
+      <div class="card-body">
+        <form id="assignDriverForm">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="bookingId">Booking ID</label>
+              <input type="number" id="bookingId" class="form-control" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="driverId">Driver ID</label>
+              <input type="number" id="driverId" class="form-control" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Assign Driver
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+  <div id="toastContainer"></div>
+</div>
+
+<!-- Bootstrap + jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+<!-- Custom JS -->
+<script src="admin_dashboard.js"></script>
+</body>
+</html>

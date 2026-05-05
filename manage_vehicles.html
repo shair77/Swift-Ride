@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Vehicles</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1><i class="fas fa-car"></i> Manage Vehicles</h1>
+
+  <!-- Add Vehicle Form -->
+  <form id="addVehicleForm" class="mb-4">
+    <div class="form-row">
+      <div class="col">
+        <input type="text" id="vehicleModel" class="form-control" placeholder="Vehicle Model" required>
+      </div>
+      <div class="col">
+        <input type="text" id="vehiclePlate" class="form-control" placeholder="License Plate" required>
+      </div>
+      <div class="col">
+        <select id="vehicleType" class="form-control" required>
+          <option value="">Select Type</option>
+          <option value="Sedan">Sedan</option>
+          <option value="SUV">SUV</option>
+          <option value="Truck">Truck</option>
+          <option value="Sports">Sports</option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="number" id="vehicleCapacity" class="form-control" placeholder="Capacity" min="2" max="10" required>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-success">Add Vehicle</button>
+      </div>
+    </div>
+  </form>
+  
+
+  <!-- Vehicles Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Model</th>
+        <th>License Plate</th>
+        <th>Type</th>
+        <th>Capacity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="vehiclesTableBody">
+    </tbody>
+  </table>
+</div>
+<!-- Toast Container -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <div id="toastContainer"></div>
+  </div>
+  
+
+<script src="manage_vehicles.js"></script>
+<!-- jQuery FIRST (important for Toasts) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

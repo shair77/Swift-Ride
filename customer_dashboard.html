@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1><i class="fas fa-user"></i> Customer Dashboard</h1>
+      <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <!-- Book a Ride Button -->
+    <div class="mb-3">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#bookRideModal">
+        <i class="fas fa-car"></i> Book a Ride
+      </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row text-white mb-4">
+      <div class="col-md-4">
+        <div class="card bg-primary">
+          <div class="card-body text-center">
+            <h5>Total Bookings</h5>
+            <h2 id="totalBookings">0</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-warning">
+          <div class="card-body text-center">
+            <h5>Pending Bookings</h5>
+            <h2 id="pendingBookings">0</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success">
+          <div class="card-body text-center">
+            <h5>Completed Bookings</h5>
+            <h2 id="completedBookings">0</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Table -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3><i class="fas fa-list"></i> My Bookings</h3>
+        <input type="text" id="searchInput" class="form-control w-25" placeholder="Search bookings...">
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Pickup</th>
+                <th>Dropoff</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+              <!-- Bookings will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Book Ride Modal -->
+<div class="modal fade" id="bookRideModal" tabindex="-1" aria-labelledby="bookRideModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="bookRideForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookRideModalLabel">Book a New Ride</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="pickupLocation">Pickup Location</label>
+            <input type="text" class="form-control" id="pickupLocation" required>
+          </div>
+          <div class="form-group">
+            <label for="dropoffLocation">Dropoff Location</label>
+            <input type="text" class="form-control" id="dropoffLocation" required>
+          </div>
+          <div class="form-group">
+            <label for="fare">Fare (₹)</label>
+            <input type="number" class="form-control" id="fare" required placeholder="Enter estimated fare">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Bootstrap + Custom JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="customer_dashboard.js"></script>
+  <!-- Toast Container -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+  <div id="toastContainer"></div>
+</div>
+
+</body>
+</html>
